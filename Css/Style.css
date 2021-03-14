@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body{
+    background:#111 ;
+}
+
+section{
+    position: relative;
+    padding: 100px;
+}
+
+.header{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1000000;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.header .logo{
+    color:#fff;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.header .toggle img{
+    max-width: 40px;
+    cursor: pointer;
+}
+
+.banner{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width:100%;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to top,#111,transparent);
+}
+
+.banner .content{
+    position: relative;
+    max-width: 900px;
+    text-align: center;
+    z-index: 1;
+}
+
+.banner .content h2{
+    color: #fff;
+    font-size: 5em;
+}
+
+.banner .content p{
+    color: #fff;
+    font-size: 1.2em;
+}
+
+.btn{
+    position: relative;
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 30px;
+    background: #fff;
+    color: #333;
+    text-decoration: none;
+}
+
+.fitBg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.9;
+}
+.about{
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.about .contentBx{
+    min-width: 50%;
+    width: 50%;
+    text-align: center;
+    padding-right: 40px;
+}
+.titleText{
+    font-weight: 600;
+    color: #fff;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.text{
+    color: #fff;
+    font-size: 1em;
+}
+.about .imgBx{
+    position: relative;
+    min-width: 50%;
+    width: 50%;
+    min-height: 600px;
+}
+
+.banner2, .banner3{
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.banner2:before, .banner3:before{
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left:0;
+    width:100%;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to top,#111,transparent);    
+}
+
+.banner2:after, .banner3:after{
+    content: '';
+    position: absolute;
+    top: 0;
+    left:0;
+    width:100%;
+    height: 400px;
+    z-index: 1;
+    background: linear-gradient(to bottom,#111,transparent);    
+}
+
+
+.temario{
+    text-align: center;
+}
+
+.temario .content{
+    text-align: center;
+}
+
+.temario .temariolist {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.temario .temariolist .box{
+    position: relative;
+    min-width: 300px;    
+    height: 480px;
+    background: #191919;
+    transition: 0.5s;
+    margin: 70px;
+    margin-bottom: 120px;
+}
+
+.temario .temariolist:hover .box{
+    opacity: 0.2;
+}
+
+.temario .temariolist:hover .box:hover{
+    opacity: 1;
+}
+
+.temario .temariolist .box .imgBx{
+    position: relative;
+    width: 100%;
+    height: 400px;
+}
+
+.temario .temariolist .box .content{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.temario .temariolist .box .content h2{
+    color: #fff;
+    font-weight: 500;
+    line-height: 1.2em;
+    margin-top: 1000px;
+}
+
+.temario .temariolist .box .content h2 span{
+    font-size: 0.8em;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+.footer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.footer .sci{
+    position: relative;
+    display: flex;
+}
+
+.footer .sci li{
+    list-style: none;
+}
+
+.footer .sci li a{
+    text-decoration: none;
+    margin: 0 20px;
+}
+
+.footer .sci li a img{
+    filter: invert(1);
+    max-width: 40px;
+}
+
+.copyrightText{
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: 300;
+    color:#666;
+    text-align: center;
+}
+
+.copyrightText a{
+    text-decoration: none;
+    color: rgb(72, 49, 155);
+}
+
+
+@media(max-width: 767px){
+    
+    section {
+        padding: 30px;
+    }
+
+    .banner .content h2 {
+        font-size: 2.5em;
+    }
+
+    .banner .content p {
+        font-size: 1em;
+    }
+
+    .about {
+        flex-direction: column;
+    }
+
+    .about .contentBx, .about .imgBx {
+        min-width: 100%;
+        width: 100%;
+        text-align: center;
+        padding-right: 0px;
+    }
+
+    .about .imgBx {
+        min-height: 500px;
+    }
+
+    .temario .temariolist .box {
+        position: relative;
+        min-width: initial;
+        width:500px;
+        height: 500px;
+        margin-bottom: 100px;
+    }
+
+    .temario .temariolist .box .imgBx {
+        position: relative;
+        min-width: initial;
+        width: 100%;
+        height: 500px;
+        margin-bottom: 100px;
+    }
+
+
+    .temario .temariolist .box .content {
+    width: 300px;
+    }
+
+    .temario .temariolist .box .content h2 {
+        margin-top: 1000px;
+    }
+
+    .footer .sci li a img {
+        filter: invert(1);
+        max-width: 30px;
+    }
+    
+    .header .logo {
+        font-size: 0.8em;
+    }
+
+}
+
+
