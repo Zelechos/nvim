@@ -1,4 +1,4 @@
-# Welcome to my Learn Vim
+# Welcome to The Vim Project
 
 ## Movimientos y comandos basicos de Vim
 ------------------------------------------------------
