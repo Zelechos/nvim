@@ -284,7 +284,6 @@ Para buscar una palabra desde el cursor para abajo
 
 ```propeties 
 press keys -> [/] + [string to search]
-
 ```
 Para buscar una palabra en todo el archivo
 
@@ -301,9 +300,23 @@ press keys -> [enter] + [n]
 
 ## Para navegar entre parentesis, corchetes, llaves
 ------------------------------------------------------
-Para buscar una palabra desde el cursor para abajo
+Para navegar entre el final y principio de llaves, parentesis, corchetes 
 
 ```propeties 
-press keys -> [/] + [string to search]
-
+press keys -> [shift] + [5] = [%]
 ```
+## Para reeemplazar la ocurrencias de una cadena con otra 
+------------------------------------------------------
+Para reemplazar la primera ocurrencia que detecte en la linea
+
+```propeties 
+in normal mode
+press keys -> [:s] + [/] + [string to replace] + [/] + [string to change] 
+```
+Para reemplazar todas las ocurrencias que encuentre en el archivo 
+
+```propeties 
+in normal mode
+press keys -> [:s] + [/] + [string to replace] + [/] + [string to change] + [g] 
+```
+
