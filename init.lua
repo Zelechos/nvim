@@ -1,7 +1,8 @@
 require('base')
 require('highlights')
 require('maps')
-require('plugins')
+--require('plugins')
+require('config.lazy')
 
 -- Clip Board in windows & mac
 local has = function(x)
