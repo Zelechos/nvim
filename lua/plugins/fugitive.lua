@@ -4,9 +4,11 @@ return  {
   keys = {
     {"<leader>gs", ":Git status<cr>", desc = "Git status"},
     {"<leader>gl", ":Git log<cr>", desc = "Git log"},
+    {"<leader>glo", ":Git log --oneline<cr>", desc = "Git log oneline"},
     {"<leader>ga", ":Git add .<cr>", desc = "Git add ."},
     {"<leader>gc", ":Git commit <cr>", desc = "Git commit"},
     {"<leader>gp", ":Git push<cr>", desc = "Git push"},
+    {"<leader>gpl", ":Git pull<cr>", desc = "Git pull"},
   },
 }
 
