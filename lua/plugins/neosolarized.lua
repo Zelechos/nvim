@@ -1,4 +1,8 @@
 return { 
-  'svrana/neosolarized.nvim',
-  requires = {'tjdevries/colorbuddy.nvim'}
+  'wuelnerdotexe/vim-enfocado',
+  lazy = false,
+  priority = 1000,
+  config = function()
+    vim.cmd([[colorscheme enfocado]])
+  end,
 }
