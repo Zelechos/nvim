@@ -10,7 +10,7 @@ return  {
     {"<leader>gp", ":Git push<cr>", desc = "Git push"},
     {"<leader>gpl", ":Git pull<cr>", desc = "Git pull"},
     {"<leader>gsh", ":Git stash<cr>", desc = "Git stash"},
-    {"<leader>gshp", ":Git stash pop<cr>", desc = "Git stash pop"},
+    {"<leader>gsp", ":Git stash pop<cr>", desc = "Git stash pop"},
   },
 }
 
