@@ -42,5 +42,14 @@ return {
         },
       },
     })
+    require("lspconfig").jdtls.setup({
+      on_attach = on_attach,
+      settings = {
+        Java = {
+          telemetry = {enable = false},
+          workspace = {checkThirdParty = false},
+        },
+      },
+    })
   end
 }
