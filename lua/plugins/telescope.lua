@@ -4,10 +4,7 @@ return {
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-telescope/telescope-file-browser.nvim",
-    {
-      'nvim-telescope/telescope-fzf-native.nvim',
-      build = 'make'
-    } },
+  },
   opts = {
     extensions = {
       fzf = {
@@ -20,14 +17,13 @@ return {
     }
   },
   config = function(opts)
-    require('telescope').setup(opts)
-    require('telescope').load_extension('fzf')
+    require("telescope").setup(opts)
   end,
   keys = {
     {
       "<leader>pp",
       function()
-        require('telescope.builtin').git_files({ show_untracked = true })
+        require("telescope.builtin").git_files({ show_untracked = true })
       end,
       desc = "Telescope Git Files",
     },
