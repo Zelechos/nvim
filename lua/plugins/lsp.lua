@@ -32,6 +32,7 @@ return {
     end, opts)
     end
 
+    require('java').setup()
     require("neodev").setup()
     require("lspconfig").lua_ls.setup({
       on_attach = on_attach,

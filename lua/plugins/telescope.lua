@@ -1,3 +1,6 @@
+local active_normal_mode = function ()
+     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
+end
 return {
   "nvim-telescope/telescope.nvim",
   event = 'VeryLazy',
@@ -19,11 +22,13 @@ return {
   config = function(opts)
     require("telescope").setup(opts)
   end,
+
   keys = {
     {
       "<leader>pp",
       function()
         require("telescope.builtin").git_files({ show_untracked = true })
+        active_normal_mode()
       end,
       desc = "Telescope Git Files",
     },
@@ -31,6 +36,7 @@ return {
       "<leader>pe",
       function()
         require("telescope.builtin").buffers()
+        active_normal_mode()
       end,
       desc = "Telescope buffers",
     },
@@ -38,13 +44,15 @@ return {
       "<leader>gs",
       function()
         require("telescope.builtin").git_status()
+        active_normal_mode()
       end,
       desc = "Telescope Git status",
     },
     {
-      "<leader>gc",
+      "<leader>gt",
       function()
         require("telescope.builtin").git_bcommits()
+        active_normal_mode()
       end,
       desc = "Telescope Git status",
     },
@@ -52,32 +60,15 @@ return {
       "<leader>gb",
       function()
         require("telescope.builtin").git_branches()
+        active_normal_mode()
       end,
       desc = "Telescope Git branches",
-    },
-    {
-      "<leader>rp",
-      function()
-        require("telescope.builtin").find_files({
-          prompt_title = "Plugins",
-          cwd = "~/.config/nvim/lua/plugins",
-          attach_mappings = function(_, map)
-            local actions = require("telescope.actions")
-            local action_state = require("telescope.actions.state")
-            map("i", "<c-y>", function(prompt_bufnr)
-              local new_plugin = action_state.get_current_line()
-              actions.close(prompt_bufnr)
-              vim.cmd(string.format("edit ~/.config/nvim/lua/plugins/%s.lua", new_plugin))
-            end)
-            return true
-          end
-        })
-      end
     },
     {
       "<leader>pf",
       function()
         require('telescope.builtin').find_files()
+        active_normal_mode()
       end,
       desc = "Telescope Find Files",
     },
@@ -85,13 +76,15 @@ return {
       "<leader>ph",
       function()
         require("telescope.builtin").help_tags()
+        active_normal_mode()
       end,
       desc = "Telescope Help"
     },
     {
-      "<leader>bb",
+      "<leader>ss",
       function()
-        require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
+        require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true})
+        active_normal_mode()
       end,
       desc = "Telescope file browser"
     }

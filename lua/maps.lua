@@ -17,7 +17,7 @@ keymap.set('n', '<C-a>', 'gg<S-v>G')
 keymap.set('n', 'te', ':tabedit<Return>', { silent = true })
 
 -- Split window
-keymap.set('n', 'ss', ':split<Return><C-w>w', { silent = true })
+keymap.set('n', 'sn', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'sv', ':vsplit<Return><C-w>w', { silent = true })
 
 --Move window
@@ -37,4 +37,12 @@ keymap.set('n', '<C-w><right>', '<C-w>>')
 keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
+-- Jump to End and Begin of line
+keymap.set('n', 'E', '$')
+keymap.set('n', 'B', '0')
 
+-- Copy a word
+keymap.set('n', '<leader>c', 'viwy')
+
+-- Select a word
+keymap.set('n', '<leader>v', 'viwp')

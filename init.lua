@@ -1,7 +1,6 @@
 require('base')
 require('highlights')
 require('maps')
---require('plugins')
 require('config.lazy')
 
 local has = function(x)
