@@ -44,5 +44,5 @@ keymap.set('n', 'B', '0')
 -- Copy a word
 keymap.set('n', '<leader>c', 'viwy')
 
--- Select a word
+-- Paste a word
 keymap.set('n', '<leader>v', 'viwp')
