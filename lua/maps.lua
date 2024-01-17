@@ -39,7 +39,7 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Jump to End and Begin of line
 keymap.set('n', 'E', '$')
-keymap.set('n', 'B', '0')
+keymap.set('n', 'B', 'I<Esc>')
 
 -- Copy a word
 keymap.set('n', '<leader>c', 'viwy')
