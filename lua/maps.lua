@@ -50,3 +50,5 @@ keymap.set('n', '<leader>v', 'viwp')
 -- Line Break in Normal mode
 keymap.set('n', '<leader><Tab>', 'o<Esc>')
 
+-- Tab Normal mode
+keymap.set('n', '<S-Tab>', 'I<Tab><Esc>')
