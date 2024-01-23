@@ -47,6 +47,9 @@ keymap.set('n', '<leader>c', 'viwy')
 -- Paste a word
 keymap.set('n', '<leader>v', 'viwp')
 
+-- Select a word
+keymap.set('n', '<leader>sl', 'bve')
+
 -- Line Break in Normal mode
 keymap.set('n', '<leader><Tab>', 'o<Esc>')
 
