@@ -4,7 +4,11 @@ vim.scriptencoding = 'utf-8'
 vim.opt.encoding = 'utf-8'
 vim.opt.fileencoding = 'utf-8'
 
-vim.wo.number = true
+-- Mostrar números de línea absolutos
+vim.cmd('set number')
+
+-- Mostrar números de línea relativos
+vim.cmd('set relativenumber')
 
 vim.opt.title = true
 vim.opt.autoindent = true
