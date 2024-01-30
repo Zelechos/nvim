@@ -27,18 +27,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-commentary'
 
 
-"" -- Map IDE actions to IdeaVim -- https://jb.gg/abva4t
-"" Map \r to the Reformat Code action
-"map \r <Action>(ReformatCode)
-
-"" Map <leader>d to start debug
-"map <leader>d <Action>(Debug)
-
-"" Map \b to toggle the breakpoint on the current line
-"map \b <Action>(ToggleLineBreakpoint)
 let g:argtextobj_pairs="[:],(:),<:>"
-" <C-n> seems to me as a better solution than <M-n>,
-" but we should finally support vim-visual-multi because vim-multiple-cursors is deprecated now
 map <C-n> <Plug>NextWholeOccurrence
 
 """ Common settings -------------------------
@@ -52,6 +41,7 @@ set ideajoin
 
 """ My Mappings -----------------------------
 map <leader>e <Action>(Run)
+map <leader>r <Action>(Rerun)
 map <leader>x <Action>(Stop)
 map <leader>d <Action>(Debug)
 map <leader>b <Action>(ToggleLineBreakpoint)
