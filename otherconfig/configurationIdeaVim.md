@@ -1,6 +1,12 @@
+### My Current Configuration of IdeaVim
+
+---
+
+```bash
+
 let mapleader=" "
 
-""" Plugins  --------------------------------
+""" Plugins --------------------------------
 set surround
 set multiple-cursors
 set commentary
@@ -26,7 +32,6 @@ Plug 'machakann/vim-highlightedyank'
 " Commentary plugin
 Plug 'tpope/vim-commentary'
 
-
 let g:argtextobj_pairs="[:],(:),<:>"
 map <C-n> <Plug>NextWholeOccurrence
 
@@ -51,6 +56,9 @@ map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>q <Action>(ShowHoverInfo)
 map <leader>n <Action>(QuickImplementations)
 
+""" Go to Exit mode
+imap qq <Esc>
+
 """ Go to end of word
 map L $
 
@@ -74,3 +82,5 @@ map <leader>s viw
 
 """ Tab in normal mode
 map <S-Tab> I<Tab><Esc>
+
+```

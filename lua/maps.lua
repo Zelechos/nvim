@@ -38,8 +38,8 @@ keymap.set('n', '<C-w><up>', '<C-w>+')
 keymap.set('n', '<C-w><down>', '<C-w>-')
 
 -- Jump to End and Begin of line
-keymap.set('n', 'E', '$')
-keymap.set('n', 'B', 'I<Esc>')
+keymap.set('n', 'L', '$')
+keymap.set('n', 'H', 'I<Esc>')
 
 -- Copy a word
 keymap.set('n', '<leader>c', 'viwy')
@@ -55,3 +55,6 @@ keymap.set('n', '<leader><Tab>', 'o<Esc>')
 
 -- Tab Normal mode
 keymap.set('n', '<S-Tab>', 'I<Tab><Esc>')
+
+--  Exit to insert Mode  
+keymap.set('i', 'qq', '<Esc>')
