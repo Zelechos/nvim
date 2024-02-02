@@ -73,13 +73,16 @@ map H I<Esc>
 map <leader><Tab> o<Esc>
 
 """ Global Copy
-map <leader>c viw"+y
+map <leader>c "+y
 
 """ Global Paste
-map <leader>v viw"+p
+map <leader>v "+p
 
-""" Global Paste
-map <leader>p "+p
+""" Word Copy
+map <leader>C viw"+y
+
+""" Word Paste
+map <leader>V viw"+p
 
 """ Select a word
 map <leader>s viw
