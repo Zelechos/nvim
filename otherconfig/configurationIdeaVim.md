@@ -55,6 +55,7 @@ map <leader>a <Action>(Annotate)
 map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>q <Action>(ShowHoverInfo)
 map <leader>n <Action>(QuickImplementations)
+map <leader>z <Action>(ToggleDistractionFreeMode)
 
 """ Go to Exit mode of the Insert mode
 imap qq <Esc>
