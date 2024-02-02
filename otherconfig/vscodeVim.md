@@ -15,6 +15,12 @@
       "after": ["<Esc>"]
     }
   ],
+  "vim.visualModeKeyBindings": [
+      {
+        "before": ["q", "q"],
+        "after": ["<Esc>"]
+      }
+    ],
   "vim.normalModeKeyBindings": [
     {
       "before": ["L"],
