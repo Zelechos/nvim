@@ -56,8 +56,11 @@ map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
 map <leader>q <Action>(ShowHoverInfo)
 map <leader>n <Action>(QuickImplementations)
 
-""" Go to Exit mode
+""" Go to Exit mode of the Insert mode
 imap qq <Esc>
+
+""" Go to Exit mode of the Visual mode
+vmap qq <Esc>
 
 """ Go to end of word
 map L $
