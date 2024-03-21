@@ -13,6 +13,10 @@
     {
       "before": ["q", "q"],
       "after": ["<Esc>"]
+    },
+    {
+      "before": ["Q", "Q"],
+      "after": ["<Esc>"]
     }
   ],
   "vim.visualModeKeyBindings": [
