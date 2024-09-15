@@ -1,5 +1,5 @@
-local active_normal_mode = function ()
-     vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
+local active_normal_mode = function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, true, true), 'n', true)
 end
 return {
   "nvim-telescope/telescope.nvim",
@@ -25,7 +25,7 @@ return {
 
   keys = {
     {
-      "<leader>pp",
+      "<leader>gf",
       function()
         require("telescope.builtin").git_files({ show_untracked = true })
         active_normal_mode()
@@ -33,7 +33,7 @@ return {
       desc = "Telescope Git Files",
     },
     {
-      "<leader>pe",
+      "<leader>b",
       function()
         require("telescope.builtin").buffers()
         active_normal_mode()
@@ -49,7 +49,7 @@ return {
       desc = "Telescope Git status",
     },
     {
-      "<leader>gt",
+      "<leader>gc",
       function()
         require("telescope.builtin").git_bcommits()
         active_normal_mode()
@@ -65,7 +65,7 @@ return {
       desc = "Telescope Git branches",
     },
     {
-      "<leader>pf",
+      "<leader>f",
       function()
         require('telescope.builtin').find_files()
         active_normal_mode()
@@ -73,7 +73,7 @@ return {
       desc = "Telescope Find Files",
     },
     {
-      "<leader>ph",
+      "<leader>hh",
       function()
         require("telescope.builtin").help_tags()
         active_normal_mode()
@@ -81,12 +81,12 @@ return {
       desc = "Telescope Help"
     },
     {
-      "<leader>ss",
+      "<leader>s",
       function()
-        require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true})
+        require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
         active_normal_mode()
       end,
       desc = "Telescope file browser"
-    }
-  },
+    },
+  }
 }

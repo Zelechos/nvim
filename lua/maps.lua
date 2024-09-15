@@ -56,5 +56,13 @@ keymap.set('n', '<leader><Tab>', 'o<Esc>')
 -- Tab Normal mode
 keymap.set('n', '<S-Tab>', 'I<Tab><Esc>')
 
---  Exit to insert Mode  
+--  Exit to visual Mode
+keymap.set('v', 'qq', '<Esc>', { noremap = true, silent = true })
+
+--  Exit to insert Mode
 keymap.set('i', 'qq', '<Esc>')
+
+
+
+
+
