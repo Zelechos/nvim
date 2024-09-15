@@ -1,5 +1,55 @@
 # Welcome to The Vim Project
 
+## Ubicacion donde debe estar el repositorio para aplicar y gestionar cambios
+------------------------------------------------------
+En Windows:
+
+La ruta de configuración en Windows suele ser:
+
+```
+    C:\Users\<tu-usuario>\AppData\Local\nvim\init.vim
+```
+Para Lua, podrías tener un archivo:
+
+```
+    C:\Users\<tu-usuario>\AppData\Local\nvim\init.lua
+```
+## Plugins Actualmente intalados: 
+------------------------------------------------------
+
+    ● cmp-buffer 17.67ms  nvim-cmp
+    ● cmp-cmdline 5.27ms  nvim-cmp
+    ● cmp-git 0.28ms  nvim-cmp
+    ● cmp-nvim-lsp 5.28ms  nvim-cmp
+    ● cmp-path 4.76ms  nvim-cmp
+    ● cmp_luasnip 9.53ms  nvim-cmp
+    ● gitsigns.nvim 25.31ms  start
+    ● lazy.nvim 20.19ms  init.lua
+    ● lua-async-await 1.47ms  nvim-java
+    ● lualine.nvim 3.46ms  start
+    ● LuaSnip 15.86ms  start
+    ● mason.nvim 7.6ms  nvim-lspconfig
+    ● neodev.nvim 0.15ms  nvim-lspconfig
+    ● nui.nvim 1.85ms  nvim-java
+    ● nvim-autopairs 0.28ms  nvim-cmp
+    ● nvim-cmp 53.09ms  VeryLazy
+    ● nvim-dap 2.57ms  nvim-java
+    ● nvim-java 47.14ms 󰢱 java  nvim-lspconfig
+    ● nvim-java-core 1.57ms  nvim-java
+    ● nvim-java-dap 1.7ms  nvim-java
+    ● nvim-java-refactor 1.57ms  nvim-java
+    ● nvim-java-test 2.22ms  nvim-java
+    ● nvim-lspconfig 146.23ms  start
+    ● nvim-treesitter 60.86ms  VeryLazy
+    ● nvim-treesitter-textobjects 21.03ms  nvim-treesitter
+    ● nvim-web-devicons 3.2ms  lualine.nvim
+    ● plenary.nvim 6.14ms  telescope.nvim
+    ● spring-boot.nvim 2.14ms  nvim-java
+    ● telescope-file-browser.nvim 11.76ms  telescope.nvim
+    ● telescope.nvim 34.09ms  VeryLazy
+    ● vim-enfocado 20.92ms  start
+
+
 ## Movimientos y comandos basicos de Vim
 ------------------------------------------------------
 Ingresar a modo de Escritura & tambien para empezar a escribir en el inicio de una palabra
