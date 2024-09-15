@@ -49,33 +49,48 @@ map <leader>e <Action>(Run)
 map <leader>r <Action>(Rerun)
 map <leader>x <Action>(Stop)
 map <leader>d <Action>(Debug)
-map <leader>b <Action>(ToggleLineBreakpoint)
-map <leader>r <Action>(RenameElement)
+map <leader>f <Action>(Find)
 map <leader>a <Action>(Annotate)
-map <leader>h <Action>(Vcs.ShowTabbedFileHistory)
-map <leader>q <Action>(ShowHoverInfo)
+map <leader>i <Action>(ShowHoverInfo)
 map <leader>n <Action>(QuickImplementations)
+map <leader>p <Action>(RecentFiles)
+map <leader>z <Action>(ToggleDistractionFreeMode)
+map <leader>w <Action>(CloseContent)
+map <C-l> <Action>(NextTab)
+map <C-h> <Action>(PreviousTab)
+vmap <leader>r <Action>(ReformatCode)
 
-""" Go to Exit mode
+""" Go to Exit mode of the Insert mode
 imap qq <Esc>
+imap QQ <Esc>
+nnoremap qq <Esc>
+
+""" Go to Exit mode of the Visual mode
+vmap qq <Esc>
+
+""" Go to Exit mode of the Command mode
+cmap qq <Esc>
 
 """ Go to end of word
 map L $
 
 """ Go to beginnig of word
-map H I<Esc>
+map H 0w
 
 """ Line break in normal mode
 map <leader><Tab> o<Esc>
 
 """ Global Copy
-map <leader>c viw"+y
+map <leader>c "+y
 
 """ Global Paste
-map <leader>v viw"+p
+map <leader>v "+p
 
-""" Global Paste
-map <leader>p "+p
+""" Word Copy
+map <leader>C viw"+y
+
+""" Word Paste
+map <leader>V viw"+p
 
 """ Select a word
 map <leader>s viw
