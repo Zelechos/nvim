@@ -6,6 +6,9 @@ local M = {}
 
 function M.setup()
   cmp.setup({
+    completion = {
+      completeopt = "menu,menuone,preview,noselect",
+    },
     snippet = {
       expand = function(args)
         luasnip.lsp_expand(args.body)
@@ -14,7 +17,7 @@ function M.setup()
     mapping = {
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),
       ["<C-f>"] = cmp.mapping.scroll_docs(4),
-      ["<C-e>"] = cmp.mapping.abort(),
+      ["<C-q>"] = cmp.mapping.abort(),
       ["<C-j>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
@@ -26,12 +29,11 @@ function M.setup()
       end, { "i", "s" }),
 
       ["<C-k>"] = cmp.mapping.select_prev_item(),
-      ["<C-l>"] = cmp.mapping.confirm{
+      ["<C-l>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       },
-
-      ["<c-space>"] = cmp.mapping.complete(),
+      ["<C-Space>"] = cmp.mapping.complete(),
     },
     sources = {
       { name = "nvim_lsp" },
@@ -41,18 +43,18 @@ function M.setup()
     },
   })
 
-  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = {tex = "" } })
+  cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
 
   -- Set configuration for specific filetype
   cmp.setup.filetype('gitcommit', {
     sources = cmp.config.sources({
       { name = 'git' },
-    },{
+    }, {
       { name = 'buffer' },
     })
   })
 
-  cmp.setup.cmdline({'/', '?'}, {
+  cmp.setup.cmdline({ '/', '?' }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
       { name = 'buffer' },
@@ -71,4 +73,3 @@ function M.setup()
 end
 
 return M
-
