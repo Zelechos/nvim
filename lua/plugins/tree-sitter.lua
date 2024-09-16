@@ -1,23 +1,23 @@
 return {
- "nvim-treesitter/nvim-treesitter",
- dependencies = {
+  "nvim-treesitter/nvim-treesitter",
+  dependencies = {
     "nvim-treesitter/nvim-treesitter-textobjects",
   },
- build = ":TSUpdate",
- event = "VeryLazy",
- main = "nvim-treesitter.configs",
- opts = {
-   ensure_installed = {
-     "lua", "luadoc", "java", "javascript", "typescript", "python", "html", "css", "dockerfile",
-   },
-   highlight = {
-     enable = true,
-   },
-   indent = {
-     enable = true,
-   },
-   textobjects = {
-     select = {
+  build = ":TSUpdate",
+  event = "VeryLazy",
+  main = "nvim-treesitter.configs",
+  opts = {
+    ensure_installed = {
+      "lua", "luadoc", "java", "javascript", "typescript", "python", "html", "css", "dockerfile",
+    },
+    highlight = {
+      enable = true,
+    },
+    indent = {
+      enable = true,
+    },
+    textobjects = {
+      select = {
         enable = true,
         lookahead = true,
         keymaps = {
@@ -27,8 +27,8 @@ return {
           ["ic"] = "@conditional.inner",
           ["al"] = "@loop.outer",
           ["il"] = "@loop.inner",
+        },
       },
-   },
- },
- },
+    },
+  },
 }
