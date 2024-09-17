@@ -65,7 +65,7 @@ return {
       desc = "Telescope Git branches",
     },
     {
-      "<leader>f",
+      "<leader>ff",
       function()
         require('telescope.builtin').find_files()
         active_normal_mode()
@@ -81,7 +81,7 @@ return {
       desc = "Telescope Help"
     },
     {
-      "<leader>s",
+      "<leader>fb",
       function()
         require("telescope").extensions.file_browser.file_browser({ path = "%:h:p", select_buffer = true })
         active_normal_mode()
