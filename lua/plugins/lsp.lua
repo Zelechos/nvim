@@ -1,6 +1,7 @@
 return {
   "neovim/nvim-lspconfig",
-  dependencies = { "williamboman/mason.nvim",
+  dependencies = {
+    "williamboman/mason.nvim",
     "folke/neodev.nvim",
   },
   config = function()
@@ -50,6 +51,12 @@ return {
           workspace = { checkThirdParty = true },
         },
       },
+    })
+    require("lspconfig").ts_ls.setup({
+      on_attach = on_attach,                                                                                       -- Utiliza la misma función `on_attach`
+      filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },                            -- Archivos compatibles
+      cmd = { "typescript-language-server", "--stdio" },                                                           -- Comando para ejecutar el servidor
+      root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"), -- Define el directorio raíz del proyecto
     })
   end
 }
