@@ -13,9 +13,6 @@ keymap.set('n', 'dw', 'vb"_d')
 -- Select all
 keymap.set('n', '<C-a>', 'gg<S-v>G')
 
--- New Tab
-keymap.set('n', '<Tab>', ':tabedit<Return>', { silent = true })
-
 -- Create a new horizontal and vertical window
 keymap.set('n', 'zv', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'zb', ':vsplit<Return><C-w>w', { silent = true })
@@ -60,7 +57,7 @@ keymap.set('n', '<leader>s', 'viw')
 keymap.set('n', '<leader><Tab>', 'o<Esc>')
 
 -- Tab Normal mode
-keymap.set('n', '<S-Tab>', 'I<Tab><Esc>')
+keymap.set({ 'n', 'v' }, '<S-Tab>', 'I<Tab><Esc>')
 
 --  Exit to visual Mode
 keymap.set('v', 'qq', '<Esc>', { noremap = true, silent = true })
