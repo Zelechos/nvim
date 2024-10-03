@@ -18,10 +18,10 @@ keymap.set('n', 'zv', ':split<Return><C-w>w', { silent = true })
 keymap.set('n', 'zb', ':vsplit<Return><C-w>w', { silent = true })
 
 -- Quit of Buffer
-keymap.set('n', 'Q', ':q<Return>', { silent = true })
+keymap.set('n', 'Q', ':q!<Return>', { silent = true })
 
 -- Save a Buffer
-keymap.set('n', 'S', ':w<Return>', { silent = true })
+keymap.set('n', 'S', ':w!<Return>', { silent = true })
 
 --Move window
 keymap.set('n', 'zz', '<C-w>w')
