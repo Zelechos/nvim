@@ -44,6 +44,11 @@ keymap.set('n', '<C-w><down>', '<C-w>-')
 keymap.set('n', 'L', '$')
 keymap.set('n', 'H', 'I<Esc>')
 
+
+-- Jump to End and Begin in Visual Mode of line
+keymap.set('v', 'L', '$')
+keymap.set('v', 'H', 'I<Esc>')
+
 -- Copy a word
 keymap.set('n', '<leader>c', 'viwy')
 
