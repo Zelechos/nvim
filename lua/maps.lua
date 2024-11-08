@@ -66,6 +66,8 @@ keymap.set({ 'n', 'v' }, '<S-Tab>', 'I<Tab><Esc>')
 
 --  Exit to visual Mode
 keymap.set('v', 'qq', '<Esc>', { noremap = true, silent = true })
+keymap.set('v', 'QQ', '<Esc>', { noremap = true, silent = true })
 
 --  Exit to insert Mode
 keymap.set('i', 'qq', '<Esc>')
+keymap.set('i', 'QQ', '<Esc><CapsLock>')
