@@ -8,7 +8,7 @@ return {
   main = "nvim-treesitter.configs",
   opts = {
     ensure_installed = {
-      "lua", "luadoc", "java", "javascript", "typescript", "python", "html", "css", "dockerfile",
+      "lua", "luadoc", "java", "javascript", "typescript", "python", "html", "css", "dockerfile","json",
     },
     highlight = {
       enable = true,
@@ -21,9 +21,9 @@ return {
         enable = true,
         lookahead = true,
         keymaps = {
-          ["af"] = "@function.outer",
+          ["ff"] = "@function.outer",
           ["if"] = "@function.inner",
-          ["ac"] = "@conditional.outer",
+          ["cc"] = "@conditional.outer",
           ["ic"] = "@conditional.inner",
           ["al"] = "@loop.outer",
           ["il"] = "@loop.inner",

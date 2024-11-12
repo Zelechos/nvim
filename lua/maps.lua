@@ -61,7 +61,7 @@ keymap.set('n', '<leader>s', 'viw')
 -- Line Break in Normal mode
 keymap.set('n', '<leader><Tab>', 'o<Esc>')
 
--- Tab Normal mode
+-- Tab Normal and Visual mode
 keymap.set({ 'n', 'v' }, '<S-Tab>', 'I<Tab><Esc>')
 
 --  Exit to visual Mode
@@ -70,4 +70,9 @@ keymap.set('v', 'QQ', '<Esc>', { noremap = true, silent = true })
 
 --  Exit to insert Mode
 keymap.set('i', 'qq', '<Esc>')
-keymap.set('i', 'QQ', '<Esc><CapsLock>')
+keymap.set('i', 'QQ', '<Esc>')
+
+-- Configuración para moverse al inicio y final de una función
+keymap.set('n', 'FF', ':TSTextobjectGotoPreviousStart @function.outer<CR>', { noremap = true, silent = true })
+keymap.set('n', 'ff', ':TSTextobjectGotoNextEnd @function.outer<CR>', { noremap = true, silent = true })
+

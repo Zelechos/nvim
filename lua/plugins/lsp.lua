@@ -18,23 +18,17 @@ return {
       vim.keymap.set('n', '<C-k>', vim.lsp.buf.hover, opts)
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
       vim.keymap.set('n', '<leader>n', vim.lsp.buf.signature_help, opts)
-      vim.keymap.set('n', '<Space>wa', vim.lsp.buf.add_workspace_folder, opts)
-      vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-      vim.keymap.set('n', '<space>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-      end, opts)
-      vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-      vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
-      vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-      vim.keymap.set({ 'n', 'v' }, '<space>r', function()
+      vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)    -- Renombrar una palabra en toda el bufer
+      vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts)        -- Obtener las referencias del bufer
+      vim.keymap.set({ 'n', 'v' }, '<leader>r', function()
         vim.lsp.buf.format { async = true }
       end, opts)
     end
 
     require('java').setup()
     require("neodev").setup()
-
     require("lspconfig").lua_ls.setup({
       on_attach = on_attach,
       settings = {
@@ -135,14 +129,14 @@ return {
       on_attach = on_attach,
       settings = {
         pylsp = {
-          configurationSources = { "flake8" },              -- Usar flake8 como fuente de configuración para linting
+          configurationSources = { "flake8" },                  -- Usar flake8 como fuente de configuración para linting
           plugins = {
-            pycodestyle = { enabled = false },              -- Desactivar pycodestyle si prefieres usar flake8 o pylint
-            pylint = { enabled = true },                    -- Activar pylint
-            flake8 = { enabled = true },                    -- Activar flake8
+            pycodestyle = { enabled = false },                  -- Desactivar pycodestyle si prefieres usar flake8 o pylint
+            pylint = { enabled = true },                        -- Activar pylint
+            flake8 = { enabled = true },                        -- Activar flake8
             pylsp_mypy = { enabled = true, live_mode = false }, -- Integración con mypy para análisis de tipos
-            pylsp_black = { enabled = true },               -- Activar Black para formateo automático
-            pylsp_isort = { enabled = true },               -- Activar isort para ordenar imports
+            pylsp_black = { enabled = true },                   -- Activar Black para formateo automático
+            pylsp_isort = { enabled = true },                   -- Activar isort para ordenar imports
           },
         },
       },

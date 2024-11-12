@@ -27,13 +27,12 @@ function M.setup()
           fallback()
         end
       end, { "i", "s" }),
-
       ["<C-k>"] = cmp.mapping.select_prev_item(),
       ["<C-l>"] = cmp.mapping.confirm {
         behavior = cmp.ConfirmBehavior.Insert,
         select = true,
       },
-      ["<C-Space>"] = cmp.mapping.complete(),
+      ["<C-u>"] = cmp.mapping.complete(),
     },
     sources = {
       { name = "nvim_lsp" },
