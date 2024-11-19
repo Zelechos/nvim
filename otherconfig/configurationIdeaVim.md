@@ -46,19 +46,37 @@ set ideajoin
 
 """ My Mappings -----------------------------
 map <leader>e <Action>(Run)
-map <leader>r <Action>(Rerun)
 map <leader>x <Action>(Stop)
 map <leader>d <Action>(Debug)
 map <leader>f <Action>(Find)
+map <leader>fa <Action>(FindInPath)
 map <leader>a <Action>(Annotate)
 map <leader>i <Action>(ShowHoverInfo)
 map <leader>n <Action>(QuickImplementations)
 map <leader>p <Action>(RecentFiles)
 map <leader>z <Action>(ToggleDistractionFreeMode)
-map <leader>w <Action>(CloseContent)
-map <C-l> <Action>(NextTab)
-map <C-h> <Action>(PreviousTab)
+map <leader>w <Action>(CloseEditor)
+map <leader>q <Action>(CloseActiveTab)
+map S <Action>(SaveAll)
 vmap <leader>r <Action>(ReformatCode)
+map <leader>r <Action>(ReformatCode)
+
+""" Create and Navigate in Splits
+map zb <Action>(SplitVertically)
+map zv <Action>(SplitHorizontally)
+nmap zh <C-w>h
+nmap zl <C-w>l
+nmap zj <C-w>j
+nmap zk <C-w>k
+
+""" Create and Navigate in Windows
+map <C-h> <Action>(NextTab)
+map <C-l> <Action>(PreviousTab)
+map Q <Action>(CloseAllEditors)
+
+""" Go to File & Class
+map <leader>ff <Action>(GotoFile)
+map <leader>fb <Action>(GotoClass)
 
 """ Go to Exit mode of the Insert mode
 imap qq <Esc>
