@@ -1,3 +1,4 @@
+local cmp = require("cmp")
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -19,15 +20,14 @@ return {
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
       vim.keymap.set('n', '<leader>n', vim.lsp.buf.signature_help, opts)
       vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)    -- Renombrar una palabra en toda el bufer
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)     -- Renombrar una palabra en toda el bufer
       vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts)        -- Obtener las referencias del bufer
+      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts) -- Obtener las referencias del bufer
       vim.keymap.set({ 'n', 'v' }, '<leader>r', function()
         vim.lsp.buf.format { async = true }
       end, opts)
     end
 
-    require('java').setup()
     require("neodev").setup()
     require("lspconfig").lua_ls.setup({
       on_attach = on_attach,
@@ -41,9 +41,38 @@ return {
     require("lspconfig").jdtls.setup({
       on_attach = on_attach,
       settings = {
-        Java = {
-          telemetry = { enable = true },
-          workspace = { checkThirdParty = true },
+        java = {
+          configuration = {
+            runtimes = {
+              { name = "JavaSE-17", path = "C:/'Program Files'/Java/jdk-17" }, -- Configura tu versión de JDK.
+            },
+          },
+
+          import = {
+            gradle = { enabled = true },                          -- Mejor manejo de proyectos Gradle.
+            maven = { enabled = true },                           -- Mejor manejo de proyectos Maven.
+            exclusions = { "**/node_modules/**", "**/build/**" }, -- Excluye directorios innecesarios.
+          },
+
+          completion = {
+            favoriteStaticMembers = {
+              "org.junit.jupiter.api.Assertions.*",
+              "java.util.Objects.requireNonNull",
+              "java.util.Collections.*",
+            },
+            filteredTypes = {
+              "com.sun.*",
+              "io.micrometer.shaded.*",
+              "java.awt.*",
+            },
+          },
+          contentProvider = { preferred = "fernflower" }, -- Configura el descompilador.
+          sources = {
+            organizeImports = {
+              starThreshold = 3, -- Convierte múltiples imports en un `*`.
+              staticStarThreshold = 2,
+            },
+          },
         },
       },
     })
