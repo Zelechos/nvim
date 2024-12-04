@@ -76,3 +76,9 @@ keymap.set('i', 'QQ', '<Esc>')
 keymap.set('n', 'FF', ':TSTextobjectGotoPreviousStart @function.outer<CR>', { noremap = true, silent = true })
 keymap.set('n', 'ff', ':TSTextobjectGotoNextEnd @function.outer<CR>', { noremap = true, silent = true })
 
+
+-- Insertar Comentarios 
+keymap.set('n', '<C-c>', ':execute "normal! 0i//"<CR>', { noremap = true, silent = true })
+keymap.set('n', '<C-p>', ':execute "normal! 0i--"<CR>', { noremap = true, silent = true })
+keymap.set('v', '<C-l>', ":<C-u>normal! O/*<CR>gv<Esc>o*/<Esc>", { noremap = true, silent = true })
+
