@@ -35,10 +35,10 @@ keymap.set('', 'zj', '<C-w>j')
 keymap.set('', 'zl', '<C-w>l')
 
 -- Resize window
-keymap.set('n', '<C-w><left>', '<C-w><')
-keymap.set('n', '<C-w><right>', '<C-w>>')
-keymap.set('n', '<C-w><up>', '<C-w>+')
-keymap.set('n', '<C-w><down>', '<C-w>-')
+keymap.set('n', '<C-h>', '<C-w><')
+keymap.set('n', '<C-l>', '<C-w>>')
+keymap.set('n', '<C-k>', '<C-w>+')
+keymap.set('n', '<C-j>', '<C-w>-')
 
 -- Jump to End and Begin of line
 keymap.set('n', 'L', '$')
@@ -47,7 +47,7 @@ keymap.set('n', 'H', 'I<Esc>')
 
 -- Jump to End and Begin in Visual Mode of line
 keymap.set('v', 'L', '$')
-keymap.set('v', 'H', 'I<Esc>')
+keymap.set('v', 'H', '0')
 
 -- Copy a word
 keymap.set('n', '<leader>c', 'viwy')
@@ -76,9 +76,18 @@ keymap.set('i', 'QQ', '<Esc>')
 keymap.set('n', 'FF', ':TSTextobjectGotoPreviousStart @function.outer<CR>', { noremap = true, silent = true })
 keymap.set('n', 'ff', ':TSTextobjectGotoNextEnd @function.outer<CR>', { noremap = true, silent = true })
 
-
 -- Insertar Comentarios 
 keymap.set('n', '<C-c>', ':execute "normal! 0i//"<CR>', { noremap = true, silent = true })
 keymap.set('n', '<C-p>', ':execute "normal! 0i--"<CR>', { noremap = true, silent = true })
 keymap.set('v', '<C-l>', ":<C-u>normal! O/*<CR>gv<Esc>o*/<Esc>", { noremap = true, silent = true })
+
+-- Insertar Tabulaciones 
+keymap.set("v", "<Tab>", ">gv", { desc = "Aplicar sangría a la selección", silent = true })
+keymap.set("v", "<S-Tab>", "<gv", { desc = "Quitar sangría a la selección", silent = true })
+
+-- Mover selección visual hacia abajo con J
+keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Mover línea(s) hacia abajo", silent = true })
+
+-- Mover selección visual hacia arriba con K
+keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Mover línea(s) hacia arriba", silent = true })
 
