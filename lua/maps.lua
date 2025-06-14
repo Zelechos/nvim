@@ -91,3 +91,37 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Mover línea(s) hacia abajo",
 -- Mover selección visual hacia arriba con K
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Mover línea(s) hacia arriba", silent = true })
 
+
+keymap.set("v", "<leader>r", function()
+  local esc = vim.fn.escape
+
+  -- Asegurar que se usen los extremos correctos sin importar el modo visual
+  local start_line = math.min(vim.fn.line("v"), vim.fn.line("."))
+  local end_line = math.max(vim.fn.line("v"), vim.fn.line("."))
+
+  -- Preguntar qué palabra buscar
+  vim.ui.input({ prompt = "Palabra -> " }, function(find)
+    if not find or find == "" then
+      vim.notify("Búsqueda cancelada", vim.log.levels.WARN)
+      return
+    end
+
+    -- Escapar búsqueda para coincidencia literal (\V)
+    find = esc(find, [[\/]])
+
+    -- Preguntar qué palabra usar como reemplazo
+    vim.ui.input({ prompt = "Reemplazar con -> " }, function(replace)
+      if replace == nil then
+        vim.notify("Reemplazo cancelado", vim.log.levels.WARN)
+        return
+      end
+
+      -- También escapamos el reemplazo por seguridad
+      replace = replace:gsub([[\\]], [[\\\\]]):gsub([[\/]], [[\\\/]])
+
+      -- Ejecutamos el reemplazo sobre el rango completo
+      local cmd = string.format([[%d,%ds/\V%s/%s/g]], start_line, end_line, find, replace)
+      vim.cmd(cmd)
+    end)
+  end)
+end, { desc = "Reemplazar palabra en selección visual", noremap = true, silent = true })
