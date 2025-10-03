@@ -35,6 +35,7 @@ function M.setup()
       ["<C-u>"] = cmp.mapping.complete(),
     },
     sources = {
+      { name = "copilot" },
       { name = "nvim_lsp" },
       { name = "path" },
       { name = "luasnip" },
