@@ -51,7 +51,7 @@ return {
     {
       "<leader>gc",
       function()
-        require("telescope.builtin").git_bcommits()
+        require("telescope.builtin").git_commits()
         active_normal_mode()
       end,
       desc = "Telescope Git status",

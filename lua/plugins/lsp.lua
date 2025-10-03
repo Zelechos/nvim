@@ -1,4 +1,6 @@
-local cmp = require("cmp")
+local cmp = require("cmp_nvim_lsp")
+local capabilities = cmp.default_capabilities()
+
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
@@ -31,6 +33,7 @@ return {
     require("neodev").setup()
     require("lspconfig").lua_ls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         Lua = {
           telemetry = { enable = true },
@@ -40,6 +43,7 @@ return {
     })
     require("lspconfig").jdtls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         java = {
           configuration = {
@@ -78,12 +82,14 @@ return {
     })
     require("lspconfig").ts_ls.setup({
       on_attach = on_attach,                                                                                       -- Utiliza la misma función `on_attach`
+      capabilities = capabilities,
       filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },                            -- Archivos compatibles
       cmd = { "typescript-language-server", "--stdio" },                                                           -- Comando para ejecutar el servidor
       root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"), -- Define el directorio raíz del proyecto
     })
     require("lspconfig").html.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         html = {
           format = {
@@ -98,6 +104,7 @@ return {
     })
     require("lspconfig").cssls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         css = {
           validate = true,
@@ -112,6 +119,7 @@ return {
     })
     require("lspconfig").angularls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       cmd = { "ngserver", "--stdio" },                                           -- Especificar el comando para iniciar el Angular Language Server
       filetypes = { "typescript", "html", "typescriptreact" },                   -- Tipos de archivos que manejará el servidor
       root_dir = require("lspconfig").util.root_pattern("angular.json", ".git"), -- Definir el directorio raíz del proyecto
@@ -124,6 +132,7 @@ return {
     })
     require("lspconfig").yamlls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         yaml = {
           schemas = {
@@ -140,6 +149,7 @@ return {
     })
     require("lspconfig").sqlls.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       cmd = { "sql-language-server", "--stdio" }, -- Comando para iniciar el servidor SQL
       filetypes = { "sql" },                      -- Tipos de archivos que manejará el servidor
       settings = {
@@ -156,6 +166,7 @@ return {
     })
     require("lspconfig").pylsp.setup({
       on_attach = on_attach,
+      capabilities = capabilities,
       settings = {
         pylsp = {
           configurationSources = { "flake8" },                  -- Usar flake8 como fuente de configuración para linting

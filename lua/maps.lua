@@ -92,7 +92,7 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Mover línea(s) hacia abajo",
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Mover línea(s) hacia arriba", silent = true })
 
 
-keymap.set("v", "<leader>r", function()
+keymap.set("v", "<leader>w", function()
   local esc = vim.fn.escape
 
   -- Asegurar que se usen los extremos correctos sin importar el modo visual
