@@ -1,8 +1,21 @@
 return {
-  "github/copilot.vim",
+  "zbirenbaum/copilot.lua",
+  cmd = "Copilot",
+  event = "InsertEnter",
   config = function()
-    -- Atajos básicos
-    vim.g.copilot_no_tab_map = true
-    vim.api.nvim_set_keymap("i", "<C-l>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+    require("copilot").setup({
+      suggestion = {
+        enabled = true,
+        auto_trigger = true,
+        debounce = 75,
+        keymap = {
+          accept = "<C-l>",      -- Aceptar sugerencia
+          next = "<C-,>",        -- Siguiente sugerencia
+          prev = "<C-.>",        -- Sugerencia anterior
+          dismiss = "<C-]>",     -- Cerrar sugerencia
+        },
+      },
+      panel = { enabled = false }, -- Desactiva el panel lateral
+    })
   end,
 }

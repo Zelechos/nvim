@@ -9,8 +9,6 @@ return {
         topdelete    = {hl = 'GitGutterDelete', text = '‾', numhl=''},
         changedelete = {hl = 'GitGutterChange', text = '~', numhl=''},
       },
-      -- Evita callbacks asíncronos que llaman Vimscript
-      async = false,
       update_debounce = 100,
       current_line_blame = false,
       watch_gitdir = {

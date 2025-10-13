@@ -22,16 +22,19 @@ return {
       vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
       vim.keymap.set('n', '<leader>n', vim.lsp.buf.signature_help, opts)
       vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)     -- Renombrar una palabra en toda el bufer
+      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
       vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts) -- Obtener las referencias del bufer
+      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts)
       vim.keymap.set({ 'n', 'v' }, '<leader>r', function()
         vim.lsp.buf.format { async = true }
       end, opts)
     end
 
     require("neodev").setup()
-    require("lspconfig").lua_ls.setup({
+
+    local lsp = vim.lsp.config  -- ✅ Nueva forma para Neovim 0.11+
+
+    lsp["lua_ls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
@@ -40,24 +43,23 @@ return {
           workspace = { checkThirdParty = true },
         },
       },
-    })
-    require("lspconfig").jdtls.setup({
+    }
+
+    lsp["jdtls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         java = {
           configuration = {
             runtimes = {
-              { name = "JavaSE-17", path = "C:/'Program Files'/Java/jdk-17" }, -- Configura tu versión de JDK.
+              { name = "JavaSE-17", path = "C:/'Program Files'/Java/jdk-17" },
             },
           },
-
           import = {
-            gradle = { enabled = true },                          -- Mejor manejo de proyectos Gradle.
-            maven = { enabled = true },                           -- Mejor manejo de proyectos Maven.
-            exclusions = { "**/node_modules/**", "**/build/**" }, -- Excluye directorios innecesarios.
+            gradle = { enabled = true },
+            maven = { enabled = true },
+            exclusions = { "**/node_modules/**", "**/build/**" },
           },
-
           completion = {
             favoriteStaticMembers = {
               "org.junit.jupiter.api.Assertions.*",
@@ -70,92 +72,85 @@ return {
               "java.awt.*",
             },
           },
-          contentProvider = { preferred = "fernflower" }, -- Configura el descompilador.
+          contentProvider = { preferred = "fernflower" },
           sources = {
             organizeImports = {
-              starThreshold = 3, -- Convierte múltiples imports en un `*`.
+              starThreshold = 3,
               staticStarThreshold = 2,
             },
           },
         },
       },
-    })
-    require("lspconfig").ts_ls.setup({
-      on_attach = on_attach,                                                                                       -- Utiliza la misma función `on_attach`
+    }
+
+    lsp["ts_ls"] = {
+      on_attach = on_attach,
       capabilities = capabilities,
-      filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },                            -- Archivos compatibles
-      cmd = { "typescript-language-server", "--stdio" },                                                           -- Comando para ejecutar el servidor
-      root_dir = require("lspconfig.util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"), -- Define el directorio raíz del proyecto
-    })
-    require("lspconfig").html.setup({
+      filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+      cmd = { "typescript-language-server", "--stdio" },
+      root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", "jsconfig.json", ".git" }),
+    }
+
+    lsp["html"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         html = {
-          format = {
-            enable = true,
-          },
-          hover = {
-            documentation = true,
-            references = true,
-          },
+          format = { enable = true },
+          hover = { documentation = true, references = true },
         },
       },
-    })
-    require("lspconfig").cssls.setup({
+    }
+
+    lsp["cssls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
-        css = {
-          validate = true,
-        },
-        less = {
-          validate = true,
-        },
-        scss = {
-          validate = true,
-        },
+        css = { validate = true },
+        less = { validate = true },
+        scss = { validate = true },
       },
-    })
-    require("lspconfig").angularls.setup({
+    }
+
+    lsp["angularls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { "ngserver", "--stdio" },                                           -- Especificar el comando para iniciar el Angular Language Server
-      filetypes = { "typescript", "html", "typescriptreact" },                   -- Tipos de archivos que manejará el servidor
-      root_dir = require("lspconfig").util.root_pattern("angular.json", ".git"), -- Definir el directorio raíz del proyecto
+      cmd = { "ngserver", "--stdio" },
+      filetypes = { "typescript", "html", "typescriptreact" },
+      root_dir = vim.fs.root(0, { "angular.json", ".git" }),
       settings = {
         angular = {
-          providePrefixAndStyleSelectors = true, -- Activar autocompletado para prefijos y selectores de estilo
-          validate = true,                       -- Validar archivos de Angular
+          providePrefixAndStyleSelectors = true,
+          validate = true,
         },
       },
-    })
-    require("lspconfig").yamlls.setup({
+    }
+
+    lsp["yamlls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         yaml = {
           schemas = {
-            ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*", -- GitHub Actions
-            ["http://json.schemastore.org/github-action"] = "/action.yml",            -- GitHub Actions
-            -- Puedes agregar más esquemas aquí según tus necesidades
+            ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*",
+            ["http://json.schemastore.org/github-action"] = "/action.yml",
           },
-          validate = true,   -- Habilitar validación de archivos YAML
-          hover = true,      -- Mostrar documentación con hover
-          completion = true, -- Habilitar autocompletado
+          validate = true,
+          hover = true,
+          completion = true,
         },
       },
-      filetypes = { "yaml", "yml" }, -- Manejar archivos YAML y YML
-    })
-    require("lspconfig").sqlls.setup({
+      filetypes = { "yaml", "yml" },
+    }
+
+    lsp["sqlls"] = {
       on_attach = on_attach,
       capabilities = capabilities,
-      cmd = { "sql-language-server", "--stdio" }, -- Comando para iniciar el servidor SQL
-      filetypes = { "sql" },                      -- Tipos de archivos que manejará el servidor
+      cmd = { "sql-language-server", "--stdio" },
+      filetypes = { "sql" },
       settings = {
         sql = {
           connections = {
-            -- Ejemplo de configuración para una conexión a una base de datos PostgreSQL
             {
               driver = "mysql",
               connectionString = "postgres://username:password@localhost:5432/mydatabase"
@@ -163,23 +158,29 @@ return {
           },
         },
       },
-    })
-    require("lspconfig").pylsp.setup({
+    }
+
+    lsp["pylsp"] = {
       on_attach = on_attach,
       capabilities = capabilities,
       settings = {
         pylsp = {
-          configurationSources = { "flake8" },                  -- Usar flake8 como fuente de configuración para linting
+          configurationSources = { "flake8" },
           plugins = {
-            pycodestyle = { enabled = false },                  -- Desactivar pycodestyle si prefieres usar flake8 o pylint
-            pylint = { enabled = true },                        -- Activar pylint
-            flake8 = { enabled = true },                        -- Activar flake8
-            pylsp_mypy = { enabled = true, live_mode = false }, -- Integración con mypy para análisis de tipos
-            pylsp_black = { enabled = true },                   -- Activar Black para formateo automático
-            pylsp_isort = { enabled = true },                   -- Activar isort para ordenar imports
+            pycodestyle = { enabled = false },
+            pylint = { enabled = true },
+            flake8 = { enabled = true },
+            pylsp_mypy = { enabled = true, live_mode = false },
+            pylsp_black = { enabled = true },
+            pylsp_isort = { enabled = true },
           },
         },
       },
-    })
-  end
+    }
+
+    -- ✅ Iniciar todos los servidores
+    for name, cfg in pairs(lsp) do
+      vim.lsp.start(cfg)
+    end
+  end,
 }
