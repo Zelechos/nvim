@@ -10,12 +10,12 @@ return {
         debounce = 75,
         keymap = {
           accept = "<C-l>",      -- Aceptar sugerencia
-          next = "<C-,>",        -- Siguiente sugerencia
-          prev = "<C-.>",        -- Sugerencia anterior
+          next = "<C-k>",        -- Siguiente sugerencia
+          prev = "<C-j>",        -- Sugerencia anterior
           dismiss = "<C-]>",     -- Cerrar sugerencia
         },
       },
-      panel = { enabled = false }, -- Desactiva el panel lateral
+      panel = { enabled = true }, -- Desactiva el panel lateral
     })
   end,
 }
