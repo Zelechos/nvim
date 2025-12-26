@@ -5,182 +5,118 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     "williamboman/mason.nvim",
+    "williamboman/mason-lspconfig.nvim",
     "folke/neodev.nvim",
   },
   config = function()
-    vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
-    vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
-    vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
-    vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+    -- 🔧 Keymaps globales de diagnóstico
+    vim.keymap.set("n", "<space>e", vim.diagnostic.open_float)
+    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
+    vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+    vim.keymap.set("n", "<space>q", vim.diagnostic.setloclist)
 
-    local on_attach = function(_, bufnr)
-      vim.bo[bufnr].omnifunc = 'v:lua.vim.lsp.omnifunc'
-      local opts = { buffer = bufnr }
-      vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-      vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
-      vim.keymap.set('n', '<C-k>', vim.lsp.buf.hover, opts)
-      vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-      vim.keymap.set('n', '<leader>n', vim.lsp.buf.signature_help, opts)
-      vim.keymap.set('n', '<leader>D', vim.lsp.buf.type_definition, opts)
-      vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
-      vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
-      vim.keymap.set('n', '<leader>fr', vim.lsp.buf.references, opts)
-      vim.keymap.set({ 'n', 'v' }, '<leader>r', function()
-        vim.lsp.buf.format { async = true }
-      end, opts)
+    -- 🧩 Helper para saber si un cliente soporta formateo
+    local function client_supports_formatting(client)
+      if client.supports_method then
+        return client.supports_method("textDocument/formatting")
+      end
+      local caps = client.server_capabilities or {}
+      return caps.documentFormattingProvider or caps.documentRangeFormattingProvider
     end
 
-    require("neodev").setup()
+    -- 🔗 on_attach: se ejecuta al conectar un servidor LSP
+    local on_attach = function(_, bufnr)
+      local opts = { buffer = bufnr }
+      vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
 
-    local lsp = vim.lsp.config  -- ✅ Nueva forma para Neovim 0.11+
+      vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
+      vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
+      vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
+      vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
+      vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
+      vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+      vim.keymap.set("n", "<leader>fr", vim.lsp.buf.references, opts)
 
-    lsp["lua_ls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        Lua = {
-          telemetry = { enable = true },
-          workspace = { checkThirdParty = true },
+      -- ✅ Formateo (robusto)
+      vim.keymap.set({ "n", "v" }, "<leader>r", function()
+        vim.lsp.buf.format({
+          async = false,
+          timeout_ms = 5000,
+          filter = function(client)
+            if client.name == "null-ls" then
+              return true
+            end
+            return client_supports_formatting(client)
+          end,
+        })
+      end, opts)
+
+      -- 🔍 Comando debug para verificar soporte de formateo
+      vim.api.nvim_buf_create_user_command(bufnr, "LspFormatStatus", function()
+        local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+        for _, c in ipairs(clients) do
+          print(c.name, "-> formatting:", client_supports_formatting(c))
+        end
+      end, {})
+    end
+
+    -- Inicializar mason y neodev
+    require("neodev").setup({})
+    require("mason").setup()
+    local mason_lspconfig = require("mason-lspconfig")
+
+    mason_lspconfig.setup({
+      ensure_installed = {
+        "lua_ls",
+        "ts_ls",
+        "html",
+        "pylsp",
+      },
+      automatic_installation = true,
+    })
+
+    -- Configs individuales por servidor
+    local servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            format = { enable = true },
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false },
+          },
         },
       },
-    }
-
-    lsp["jdtls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        java = {
-          configuration = {
-            runtimes = {
-              { name = "JavaSE-17", path = "C:/'Program Files'/Java/jdk-17" },
-            },
-          },
-          import = {
-            gradle = { enabled = true },
-            maven = { enabled = true },
-            exclusions = { "**/node_modules/**", "**/build/**" },
-          },
-          completion = {
-            favoriteStaticMembers = {
-              "org.junit.jupiter.api.Assertions.*",
-              "java.util.Objects.requireNonNull",
-              "java.util.Collections.*",
-            },
-            filteredTypes = {
-              "com.sun.*",
-              "io.micrometer.shaded.*",
-              "java.awt.*",
-            },
-          },
-          contentProvider = { preferred = "fernflower" },
-          sources = {
-            organizeImports = {
-              starThreshold = 3,
-              staticStarThreshold = 2,
-            },
-          },
+      ts_ls = {
+        filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
+        root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" }),
+      },
+      html = {
+        settings = {
+          html = { format = { enable = true } },
         },
       },
-    }
-
-    lsp["ts_ls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-      cmd = { "typescript-language-server", "--stdio" },
-      root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", "jsconfig.json", ".git" }),
-    }
-
-    lsp["html"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        html = {
-          format = { enable = true },
-          hover = { documentation = true, references = true },
-        },
-      },
-    }
-
-    lsp["cssls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        css = { validate = true },
-        less = { validate = true },
-        scss = { validate = true },
-      },
-    }
-
-    lsp["angularls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { "ngserver", "--stdio" },
-      filetypes = { "typescript", "html", "typescriptreact" },
-      root_dir = vim.fs.root(0, { "angular.json", ".git" }),
-      settings = {
-        angular = {
-          providePrefixAndStyleSelectors = true,
-          validate = true,
-        },
-      },
-    }
-
-    lsp["yamlls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        yaml = {
-          schemas = {
-            ["http://json.schemastore.org/github-workflow"] = "/.github/workflows/*",
-            ["http://json.schemastore.org/github-action"] = "/action.yml",
-          },
-          validate = true,
-          hover = true,
-          completion = true,
-        },
-      },
-      filetypes = { "yaml", "yml" },
-    }
-
-    lsp["sqlls"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      cmd = { "sql-language-server", "--stdio" },
-      filetypes = { "sql" },
-      settings = {
-        sql = {
-          connections = {
-            {
-              driver = "mysql",
-              connectionString = "postgres://username:password@localhost:5432/mydatabase"
+      pylsp = {
+        settings = {
+          pylsp = {
+            plugins = {
+              black = { enabled = true },
+              isort = { enabled = true },
+              pylint = { enabled = true },
             },
           },
         },
       },
     }
 
-    lsp["pylsp"] = {
-      on_attach = on_attach,
-      capabilities = capabilities,
-      settings = {
-        pylsp = {
-          configurationSources = { "flake8" },
-          plugins = {
-            pycodestyle = { enabled = false },
-            pylint = { enabled = true },
-            flake8 = { enabled = true },
-            pylsp_mypy = { enabled = true, live_mode = false },
-            pylsp_black = { enabled = true },
-            pylsp_isort = { enabled = true },
-          },
-        },
-      },
-    }
+    -- 🚀 Inicializar cada servidor manualmente con mason-lspconfig
+    local lspconfig = vim.lsp.config
+    for server_name, config in pairs(servers) do
+      local opts = vim.tbl_deep_extend("force", {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      }, config)
 
-    -- ✅ Iniciar todos los servidores
-    for name, cfg in pairs(lsp) do
-      vim.lsp.start(cfg)
+      vim.lsp.start(opts)
     end
   end,
 }
