@@ -7,6 +7,7 @@ local has = function(x)
 end
 
 local is_mac = has "macunix"
+local is_linux = has "linux"
 local is_win = has "win32"
 
 if is_mac then
@@ -17,3 +18,6 @@ if is_win then
   require('windows')
 end
 
+if is_linux then
+  require('linux')
+end
