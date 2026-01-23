@@ -71,6 +71,7 @@ return {
         "ts_ls",
         "html",
         "pylsp",
+        "jdtls",
       },
       automatic_installation = true,
     })
@@ -78,6 +79,9 @@ return {
     -- Configs individuales por servidor
     local servers = {
       lua_ls = {
+        cmd = { "lua-language-server" },
+        filetypes = { "lua" },
+        root_markers = { ".luarc.json", ".luarc.jsonc", ".luacheckrc", ".stylua.toml", "stylua.toml", "selene.toml", "selene.yml", ".git" },
         settings = {
           Lua = {
             format = { enable = true },
@@ -87,15 +91,22 @@ return {
         },
       },
       ts_ls = {
+        cmd = { "typescript-language-server", "--stdio" },
         filetypes = { "typescript", "typescriptreact", "javascript", "javascriptreact" },
-        root_dir = vim.fs.root(0, { "package.json", "tsconfig.json", ".git" }),
+        root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
       },
       html = {
+        cmd = { "vscode-html-language-server", "--stdio" },
+        filetypes = { "html" },
+        root_markers = { "package.json", ".git" },
         settings = {
           html = { format = { enable = true } },
         },
       },
       pylsp = {
+        cmd = { "pylsp" },
+        filetypes = { "python" },
+        root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", "Pipfile", ".git" },
         settings = {
           pylsp = {
             plugins = {
@@ -106,17 +117,57 @@ return {
           },
         },
       },
+      jdtls = {
+        cmd = { 
+          "jdtls",
+          "-configuration", vim.fn.expand("~/.cache/jdtls/config"),
+          "-data", vim.fn.expand("~/.cache/jdtls/workspace"),
+        },
+        filetypes = { "java" },
+        root_markers = { "pom.xml", "build.gradle", "build.gradle.kts", ".git" },
+        settings = {
+          java = {
+            format = {
+              enabled = true,
+              settings = {
+                url = vim.fn.stdpath("config") .. "/lang-servers/intellij-java-google-style.xml",
+                profile = "GoogleStyle",
+              },
+            },
+            signatureHelp = { enabled = true },
+          },
+        },
+      },
     }
 
-    -- 🚀 Inicializar cada servidor manualmente con mason-lspconfig
-    local lspconfig = vim.lsp.config
+    -- 🚀 Inicializar cada servidor con la nueva API de Neovim 0.11
     for server_name, config in pairs(servers) do
-      local opts = vim.tbl_deep_extend("force", {
+      local root_markers = config.root_markers or { ".git" }
+      local filetypes = config.filetypes or {}
+      config.root_markers = nil
+      
+      local full_config = vim.tbl_deep_extend("force", {
+        name = server_name,
         on_attach = on_attach,
         capabilities = capabilities,
+        root_dir = function(filename)
+          return vim.fs.root(filename, root_markers)
+        end,
       }, config)
-
-      vim.lsp.start(opts)
+      
+      vim.lsp.config(server_name, full_config)
+      
+      -- Crear autocommand para iniciar el servidor cuando se abre un archivo del tipo correcto
+      if #filetypes > 0 then
+        vim.api.nvim_create_autocmd("FileType", {
+          pattern = filetypes,
+          callback = function(args)
+            local buf_config = vim.deepcopy(full_config)
+            buf_config.bufnr = args.buf
+            vim.lsp.start(buf_config)
+          end,
+        })
+      end
     end
   end,
 }

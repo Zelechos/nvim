@@ -1,5 +1,8 @@
 local keymap = vim.keymap
 
+-- Define map Leader
+vim.g.mapleader = " "
+
 -- Do not yank with x
 keymap.set('n', 'x', '"_x')
 
@@ -125,3 +128,28 @@ keymap.set("v", "<leader>w", function()
     end)
   end)
 end, { desc = "Reemplazar palabra en selección visual", noremap = true, silent = true })
+
+-- Formateo global con <leader>r (funciona con o sin LSP)
+keymap.set({ 'n', 'v' }, '<leader>r', function()
+  local clients = vim.lsp.get_clients({ bufnr = 0 })
+  local has_formatter = false
+  
+  -- Verificar si algún cliente soporta formateo
+  for _, client in ipairs(clients) do
+    if client.server_capabilities.documentFormattingProvider then
+      has_formatter = true
+      break
+    end
+  end
+  
+  if has_formatter then
+    -- Usar formateo LSP
+    vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
+  else
+    -- Usar formateo nativo de vim
+    local view = vim.fn.winsaveview()
+    vim.cmd('normal! gg=G')
+    vim.fn.winrestview(view)
+    print("Formateado con vim (LSP no disponible)")
+  end
+end, { desc = "Formatear código", noremap = true, silent = true })
