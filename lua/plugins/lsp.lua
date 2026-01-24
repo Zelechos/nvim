@@ -118,7 +118,7 @@ return {
         },
       },
       jdtls = {
-        cmd = { 
+        cmd = {
           "jdtls",
           "-configuration", vim.fn.expand("~/.cache/jdtls/config"),
           "-data", vim.fn.expand("~/.cache/jdtls/workspace"),
@@ -145,7 +145,7 @@ return {
       local root_markers = config.root_markers or { ".git" }
       local filetypes = config.filetypes or {}
       config.root_markers = nil
-      
+
       local full_config = vim.tbl_deep_extend("force", {
         name = server_name,
         on_attach = on_attach,
@@ -154,9 +154,9 @@ return {
           return vim.fs.root(filename, root_markers)
         end,
       }, config)
-      
+
       vim.lsp.config(server_name, full_config)
-      
+
       -- Crear autocommand para iniciar el servidor cuando se abre un archivo del tipo correcto
       if #filetypes > 0 then
         vim.api.nvim_create_autocmd("FileType", {
