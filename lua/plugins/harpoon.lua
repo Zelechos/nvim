@@ -6,7 +6,7 @@ return {
     { "<leader>a", function() require("harpoon.mark").add_file() end, desc = "Harpoon add file" },
 
     -- Menú rápido
-    { "<leader>e", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon quick menu" },
+    { "<leader>l", function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon quick menu" },
 
     -- Navegar a archivos marcados
     { "<leader>1", function() require("harpoon.ui").nav_file(1) end, desc = "Harpoon file 1" },
