@@ -75,10 +75,6 @@ keymap.set('v', 'QQ', '<Esc>', { noremap = true, silent = true })
 keymap.set('i', 'qq', '<Esc>')
 keymap.set('i', 'QQ', '<Esc>')
 
--- Configuración para moverse al inicio y final de una función
-keymap.set('n', 'FF', ':TSTextobjectGotoPreviousStart @function.outer<CR>', { noremap = true, silent = true })
-keymap.set('n', 'ff', ':TSTextobjectGotoNextEnd @function.outer<CR>', { noremap = true, silent = true })
-
 -- Insertar Comentarios 
 keymap.set('n', '<C-c>', ':execute "normal! 0i//"<CR>', { noremap = true, silent = true })
 keymap.set('n', '<C-p>', ':execute "normal! 0i--"<CR>', { noremap = true, silent = true })
@@ -153,3 +149,5 @@ keymap.set({ 'n', 'v' }, '<leader>r', function()
     print("Formateado con vim (LSP no disponible)")
   end
 end, { desc = "Formatear código", noremap = true, silent = true })
+
+
