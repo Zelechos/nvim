@@ -75,12 +75,12 @@ keymap.set('v', 'QQ', '<Esc>', { noremap = true, silent = true })
 keymap.set('i', 'qq', '<Esc>')
 keymap.set('i', 'QQ', '<Esc>')
 
--- Insertar Comentarios 
+-- Insertar Comentarios
 keymap.set('n', '<C-c>', ':execute "normal! 0i//"<CR>', { noremap = true, silent = true })
 keymap.set('n', '<C-p>', ':execute "normal! 0i--"<CR>', { noremap = true, silent = true })
 keymap.set('v', '<C-l>', ":<C-u>normal! O/*<CR>gv<Esc>o*/<Esc>", { noremap = true, silent = true })
 
--- Insertar Tabulaciones 
+-- Insertar Tabulaciones
 keymap.set("v", "<Tab>", ">gv", { desc = "Aplicar sangría a la selección", silent = true })
 keymap.set("v", "<S-Tab>", "<gv", { desc = "Quitar sangría a la selección", silent = true })
 
@@ -90,7 +90,7 @@ keymap.set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Mover línea(s) hacia abajo",
 -- Mover selección visual hacia arriba con K
 keymap.set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Mover línea(s) hacia arriba", silent = true })
 
-
+-- Buscar y reemplazar palabras en un buffer
 keymap.set("v", "<leader>w", function()
   local esc = vim.fn.escape
 
@@ -129,7 +129,7 @@ end, { desc = "Reemplazar palabra en selección visual", noremap = true, silent 
 keymap.set({ 'n', 'v' }, '<leader>r', function()
   local clients = vim.lsp.get_clients({ bufnr = 0 })
   local has_formatter = false
-  
+
   -- Verificar si algún cliente soporta formateo
   for _, client in ipairs(clients) do
     if client.server_capabilities.documentFormattingProvider then
@@ -137,7 +137,7 @@ keymap.set({ 'n', 'v' }, '<leader>r', function()
       break
     end
   end
-  
+
   if has_formatter then
     -- Usar formateo LSP
     vim.lsp.buf.format({ async = false, timeout_ms = 5000 })
@@ -150,4 +150,18 @@ keymap.set({ 'n', 'v' }, '<leader>r', function()
   end
 end, { desc = "Formatear código", noremap = true, silent = true })
 
+-- Buscar en buffer
+keymap.set("n", "<leader>f", function()
+  vim.ui.input({ prompt = "Buscar -> " }, function(input)
+    if input == nil or input == "" then
+      return
+    end
 
+    vim.fn.setreg("/", "\\V" .. input)
+    vim.opt.hlsearch = true
+
+    vim.schedule(function()
+      pcall(vim.cmd, "normal! nzz")
+    end)
+  end)
+end, { desc = "Buscar en buffer", noremap = true, silent = true })
