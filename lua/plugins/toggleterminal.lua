@@ -33,9 +33,17 @@ return {
         return
       end
 
+      -- Detectar la ruta raíz del proyecto actual (o buscar el .venv local)
+      local venv_python = vim.fn.getcwd() .. "/.venv/bin/python"
+
+      -- Si no existe el .venv en la carpeta actual, puedes usar una ruta absoluta de respaldo:
+      if vim.fn.executable(venv_python) == 0 then
+        venv_python = "/home/argusaphocraphex/Desktop/repositories/Pragmatic_IA/.venv/bin/python"
+      end
+
       python_term.cmd =
         "printf '\\033[32m' && " ..
-        "/home/argusaphocraphex/Desktop/repositories/PytorchPark/pytorch/bin/python " ..
+        venv_python .. " " ..
         file
 
       python_term:toggle()
