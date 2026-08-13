@@ -52,9 +52,6 @@ keymap.set('n', 'H', 'I<Esc>')
 keymap.set('v', 'L', '$')
 keymap.set('v', 'H', '0')
 
--- Copy a word
-keymap.set('n', '<leader>c', 'viwy')
-
 -- Paste a word
 keymap.set('n', '<leader>v', 'viwp')
 

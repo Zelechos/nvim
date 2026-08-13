@@ -13,6 +13,7 @@ return {
         "html",
         "pyright", -- Cambiado de pylsp a pyright para el tipado estricto
         "jdtls",
+        "ltex-ls",
       },
       automatic_installation = true,
     })
